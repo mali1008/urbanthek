@@ -1,0 +1,38 @@
+const fs = require("fs");
+
+// Read CSV from project root
+const csv = fs.readFileSync("menu.csv", "utf8");
+
+// Split lines
+const lines = csv.split("\n");
+
+// Remove header
+lines.shift();
+
+// Convert to JS object
+const menuArray = lines
+  .filter(line => line.trim())
+  .map((line, index) => {
+    const [name, price] = line.split(",");
+    return {
+      id: index + 1,
+      name: name.trim(),
+      price: Number(price.trim())
+    };
+  });
+
+// Create output
+const content =
+  "export const menu = " +
+  JSON.stringify(menuArray, null, 2) +
+  ";\n";
+
+// Ensure utils folder
+if (!fs.existsSync("src/utils")) {
+  fs.mkdirSync("src/utils", { recursive: true });
+}
+
+// Write menu.js
+fs.writeFileSync("src/utils/menu.js", content);
+
+console.log("✅ menu.js generated successfully");

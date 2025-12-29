@@ -1,0 +1,8 @@
+{
+  "name": "Urban Thek",
+  "short_name": "UrbanThek",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e293b",
+  "theme_color": "#1BA672"
+}
