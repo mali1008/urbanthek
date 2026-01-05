@@ -69,6 +69,7 @@ export default function Home() {
 
     msg += `\n*Delivery:* ${isFreeDelivery ? "FREE (Within 2km)" : "₹50 (Standard Charge)"}`;
     msg += `\n💰 *Total Payable: ₹${isFreeDelivery ? totalAmount : totalAmount + DELIVERY_CHARGE}*`;
+    msg += `\n\n_Store: Nawabpur, Near Akankha More_`;
 
     window.open(`https://wa.me/917596042167?text=${encodeURIComponent(msg)}`, "_blank");
     setCart({}); setShowCustomerModal(false);
@@ -78,6 +79,8 @@ export default function Home() {
   const styles = {
     page: { maxWidth: 480, margin: "0 auto", padding: "20px", fontFamily: "sans-serif", backgroundColor: "#f9fafb", minHeight: "100vh" },
     header: { textAlign: "center", color: "#059669", fontSize: "32px", fontWeight: "800", marginBottom: "5px" },
+    addressText: { textAlign: "center", color: "#374151", fontSize: "14px", margin: "0", fontWeight: "600" },
+    contactText: { textAlign: "center", color: "#111827", fontSize: "15px", margin: "5px 0 15px 0", fontWeight: "bold" },
     deliveryBanner: { backgroundColor: isFreeDelivery ? "#d1fae5" : "#ffedd5", color: isFreeDelivery ? "#065f46" : "#9a3412", padding: "12px", borderRadius: "10px", textAlign: "center", fontSize: "14px", fontWeight: "bold", marginBottom: "15px", border: "1px solid" },
     statusBadge: { backgroundColor: openNow ? "#dcfce7" : "#fee2e2", color: openNow ? "#166534" : "#991b1b", padding: "6px", borderRadius: "6px", textAlign: "center", fontSize: "12px", fontWeight: "bold", marginBottom: "15px" },
     search: { width: "100%", padding: "14px", borderRadius: "10px", border: "2px solid #d1d5db", marginBottom: "20px", boxSizing: "border-box", fontSize: "16px", color: "#111827" },
@@ -85,21 +88,20 @@ export default function Home() {
     itemName: { color: "#111827", fontSize: "18px", margin: "0 0 10px 0", fontWeight: "bold" },
     priceLabel: { color: "#374151", fontWeight: "600", fontSize: "15px" },
     btn: { border: "none", width: "36px", height: "36px", borderRadius: "8px", cursor: "pointer", fontSize: "20px", fontWeight: "bold", color: "white" },
-    footerCart: { position: "fixed", bottom: 20, left: "50%", transform: "translateX(-50%)", width: "90%", maxWidth: "400px", backgroundColor: "#059669", color: "white", padding: "16px", borderRadius: "15px", display: "flex", justifyContent: "space-between", alignItems: "center", fontWeight: "bold", cursor: "pointer", boxShadow: "0 10px 25px rgba(0,0,0,0.3)" }
+    footerCart: { position: "fixed", bottom: 20, left: "50%", transform: "translateX(-50%)", width: "90%", maxWidth: "400px", backgroundColor: "#059669", color: "white", padding: "16px", borderRadius: "15px", display: "flex", justifyContent: "space-between", alignItems: "center", fontWeight: "bold", cursor: "pointer", boxShadow: "0 10px 25px rgba(0,0,0,0.3)", zIndex: 1000 }
   };
 
-  // --- RENDER: CUSTOMER MODAL ---
   if (showCustomerModal) {
     return (
       <div style={styles.page}>
         <div style={{ background: "white", padding: "24px", borderRadius: "20px", border: "1px solid #ddd" }}>
           <h2 style={{ color: "#111827", marginTop: 0 }}>Checkout Details</h2>
-          <div style={{ marginBottom: "20px", color: "#4b5563" }}>
+          <div style={{ marginBottom: "20px", color: "#4b5563", fontWeight: "600" }}>
             Total: ₹{totalAmount} {isFreeDelivery ? "(Free Delivery)" : "+ ₹50 Delivery"}
           </div>
           <input placeholder="Customer Name" style={styles.search} onChange={e => setCustomerDetails({...customerDetails, name: e.target.value})} />
           <input placeholder="10-digit Phone Number" type="tel" maxLength="10" style={styles.search} onChange={e => setCustomerDetails({...customerDetails, phone: e.target.value})} />
-          <textarea placeholder="Delivery Address (Within 2km)" style={{...styles.search, height: "100px"}} onChange={e => setCustomerDetails({...customerDetails, address: e.target.value})} />
+          <textarea placeholder="Delivery Address (Nawabpur/Newtown area)" style={{...styles.search, height: "100px"}} onChange={e => setCustomerDetails({...customerDetails, address: e.target.value})} />
           <button onClick={placeOrder} style={{ width: "100%", padding: "16px", background: "#10b981", color: "white", border: "none", borderRadius: "10px", fontWeight: "bold", fontSize: "16px", cursor: "pointer" }}>Confirm & Order via WhatsApp</button>
           <button onClick={() => setShowCustomerModal(false)} style={{ width: "100%", marginTop: "15px", background: "none", border: "none", color: "#6b7280", fontWeight: "bold" }}>Cancel</button>
         </div>
@@ -107,30 +109,32 @@ export default function Home() {
     );
   }
 
-  // --- RENDER: MAIN PAGE ---
   return (
     <div style={styles.page}>
       <h1 style={styles.header}>Urban Thek</h1>
+      <p style={styles.addressText}>Nawabpur, Near Akankha More, Newtown, Kolkata</p>
+      <p style={styles.contactText}>📞 7596042167 / 8583052933</p>
+
       <div style={styles.statusBadge}>
         {openNow ? "● OPEN UNTIL 11:00 PM" : "○ CLOSED - OPENS 9:00 AM"}
       </div>
       
       <div style={styles.deliveryBanner}>
         {isFreeDelivery 
-          ? "🎉 You've unlocked FREE Delivery!" 
+          ? "🎉 FREE Delivery Active!" 
           : `🚚 Add ₹${MIN_ORDER_FREE_DELIVERY - totalAmount} more for FREE delivery`}
       </div>
 
       <input 
         type="text" 
-        placeholder="🔍 Search for your favorite dish..." 
+        placeholder="🔍 Search dishes..." 
         style={styles.search} 
         onChange={(e) => setSearchTerm(e.target.value)} 
       />
 
       {filteredMenu.map((item) => (
         <div key={item.id} style={styles.card}>
-          <div style={{ color: "#059669", fontSize: "12px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.5px" }}>{item.category}</div>
+          <div style={{ color: "#059669", fontSize: "12px", fontWeight: "bold", textTransform: "uppercase" }}>{item.category}</div>
           <h3 style={styles.itemName}>{item.name}</h3>
           
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -158,15 +162,15 @@ export default function Home() {
         </div>
       ))}
 
-      <div style={{ height: "100px" }}></div> {/* Space for floating button */}
+      <div style={{ height: "100px" }}></div>
 
       {totalAmount > 0 && (
         <div style={styles.footerCart} onClick={() => setShowCustomerModal(true)}>
           <div>
             <div style={{ fontSize: "18px" }}>₹{isFreeDelivery ? totalAmount : totalAmount + DELIVERY_CHARGE}</div>
-            <div style={{ fontSize: "11px", opacity: 0.9 }}>{isFreeDelivery ? "FREE Delivery" : "+₹50 Delivery Charge"}</div>
+            <div style={{ fontSize: "11px", opacity: 0.9 }}>{isFreeDelivery ? "FREE Delivery" : "+₹50 Delivery"}</div>
           </div>
-          <span>Checkout →</span>
+          <span>Checkout Order →</span>
         </div>
       )}
     </div>
