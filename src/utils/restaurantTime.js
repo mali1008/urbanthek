@@ -6,6 +6,8 @@
 // Timezone: Local (Frontend)
 // ================================
 
+
+
 export const OPEN_TIME = 9;
 export const CLOSE_TIME = 22.5;
 
@@ -17,3 +19,5 @@ export function isRestaurantOpen() {
   return currentTime >= OPEN_TIME &&
          currentTime <= CLOSE_TIME;
 }
+
+;
