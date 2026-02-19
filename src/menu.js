@@ -771,36 +771,36 @@ const menu= [
   {
     "id": 97,
     "category": "Combos",
-    "name": "Chinese Veg combo (Veg fried rice, Chili Paneer 4 pcs/Veg manchurian 3 pcs)",
+    "name": "Chinese Veg combo (Veg fried rice, Chili Paneer 4 pcs/Veg manchurian 4 pcs)",
     "full": 140,
     "half": null,
     "available": true
   },
-  {
+  /*{
     "id": 97,
     "category": "Combos",
     "name": "Chinese Veg combo (Veg Noodles, Chili Paneer/Veg manchurian 3 pcs)",
     "full": 120,
     "half": null,
     "available": true
-  },
+  },  */
   {
     "id": 98,
     "category": "Combos",
-    "name": "Chinese Non Veg combo(Egg fried rice, chili chicken 3 pcs, cold drink 250 ml)",
+    "name": "Chinese Non Veg combo(Egg fried rice, chili chicken 4 pcs)",
     "full": 185,
     "half": null,
     "available": true
   },
 
- {
+ /*{
     "id": 98,
     "category": "Combos",
     "name": "Chinese Non Veg combo(Egg Noodles, chili chicken 3 pcs, cold drink 250 ml)",
     "full": 175,
     "half": null,
     "available": true
-  },
+  },  */
  /* {
     "id": 99,
     "category": "Luchi Mutton",

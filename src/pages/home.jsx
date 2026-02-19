@@ -16,7 +16,7 @@ export default function Home() {
   const [cart, setCart] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
   const [showCustomerModal, setShowCustomerModal] = useState(false);
-const filteredMenu = menu;
+/*const filteredMenu = menu; */
   // Load customer details from LocalStorage (Memory)
   const [customerDetails, setCustomerDetails] = useState(() => {
     const saved = localStorage.getItem('urbanThekCustomer');
@@ -84,7 +84,7 @@ useEffect(() => {
 
   const canPlaceOrder = totalAmount >= MIN_ORDER_FOR_DELIVERY;
   const isFreeDelivery = totalAmount >= MIN_ORDER_FREE_DELIVERY;
-  const filteredMenuItems = menu.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredMenu = menu.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   // --- 4. WHATSAPP ORDER LOGIC ---
   const placeOrder = () => {
@@ -475,7 +475,7 @@ saveToSupabase();
 
       <input type="text" placeholder="🔍 Search dishes..." style={styles.search} onChange={(e) => setSearchTerm(e.target.value)} />
 
-      {menu.map((item) => (
+      {filteredMenu.map((item) => (
         <div key={item.id} style={styles.card}>
           <div style={{ color: "#000000", fontSize: "12px", fontWeight: "bold" }}>{item.category}</div>
           <h3 style={{ margin: "5px 0", fontSize: "18px" }}>{item.name}</h3>
